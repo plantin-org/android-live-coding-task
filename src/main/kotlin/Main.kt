@@ -39,7 +39,7 @@ fun main() = runBlocking {
     val failedApiCalls = FakeApi.getFailureCalls().values.sum()
     val successApiCalls = FakeApi.getSuccessCalls().values.sum()
 
-    val totalUniqueResourcesRequested = FakeApi.getTotalCalls().keys.size
+    val totalUniqueResourcesRequested = FakeApi.getSuccessCalls().keys.size
 
     println("🔢 Total API calls: $totalApiCalls")
     println("❌ Total API calls failed: $failedApiCalls")
@@ -69,7 +69,7 @@ object FakeApi {
         }
 
         successCount.compute(resourceId) { _, count -> (count ?: 0) + 1 }
-        return Result.success("DataFor:$resourceId - ${Random.nextInt(1000)}")
+        return Result.success("Data: $resourceId")
     }
 
     fun getTotalCalls(): Map<String, Int> = callCount
